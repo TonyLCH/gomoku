@@ -74,10 +74,6 @@ docker compose --profile tunnel up -d
 docker compose --profile tunnel up -d
 ```
 
-### 步驟 5：分享網址
-
-玩家可以透過 `https://gomoku.你的域名.com` 連線對戰！
-
 ## 📁 專案結構
 
 ```

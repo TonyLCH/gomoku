@@ -1,0 +1,34 @@
+name: gomoku
+
+services:
+  # 五子棋遊戲伺服器
+  gomoku:
+    build: .
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+      - PORT=8080
+    networks:
+      - gomoku-net
+
+  # Cloudflare Tunnel (可選 - 如已有 tunnel token 則啟用)
+  # 使用前請先:
+  # 1. 到 https://one.dash.cloudflare.com/ 建立 tunnel
+  # 2. 取得 tunnel token
+  # 3. 放在 .env 檔案: CF_TUNNEL_TOKEN=your-token-here
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    command: tunnel --no-autoupdate run --token ${CF_TUNNEL_TOKEN:-}
+    restart: unless-stopped
+    network_mode: "service:gomoku"
+    depends_on:
+      - gomoku
+    # 如果你還沒有 tunnel token，可以先註解掉整個 cloudflared 區塊
+    profiles:
+      - tunnel
+
+networks:
+  gomoku-net:
+    driver: bridge

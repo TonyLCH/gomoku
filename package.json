@@ -1,0 +1,14 @@
+{
+  "name": "gomoku-online",
+  "version": "1.0.0",
+  "description": "五子棋線上對戰平台 - AI對戰 & 跨地區玩家配對",
+  "main": "server/index.js",
+  "scripts": {
+    "start": "node server/index.js",
+    "dev": "node --watch server/index.js"
+  },
+  "dependencies": {
+    "express": "^4.21.0",
+    "socket.io": "^4.8.0"
+  }
+}

@@ -1,0 +1,16 @@
+# Dependencies
+node_modules/
+
+# Environment
+.env
+
+# Logs
+*.log
+
+# Archives
+*.zip
+*.7z
+
+# IDE
+.vscode/
+.idea/

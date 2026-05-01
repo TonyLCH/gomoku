@@ -49,6 +49,23 @@ get_lan_ip() {
 start_server() {
   echo ""
   echo -e "${CYAN}Starting Gomoku server...${NC}"
+
+  # Check dependencies
+  if ! command -v node &>/dev/null; then
+    echo -e "${RED}Error: 'node' not found. Install Node.js first:${NC}"
+    echo "  curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -"
+    echo "  sudo apt install -y nodejs"
+    show_menu; return
+  fi
+  if ! command -v screen &>/dev/null; then
+    echo -e "${RED}Error: 'screen' not found. Install with:${NC}"
+    echo "  sudo apt install -y screen"
+    show_menu; return
+  fi
+  if [ ! -d "$SCRIPT_DIR/node_modules" ]; then
+    echo -e "${YELLOW}Installing dependencies (npm install)...${NC}"
+    cd "$SCRIPT_DIR" && npm install
+  fi
   
   # Check if already running
   if screen -list | grep -q "$SCREEN_NAME"; then
